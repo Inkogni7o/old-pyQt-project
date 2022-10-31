@@ -1,13 +1,8 @@
 from PyQt5.QtWidgets import QWidget
-from forms.login1 import Ui_login_wndw
+from forms.reg import Ui_Form
 
 
-class LogWindow(QWidget, Ui_login_wndw):
+class RegWindow(QWidget, Ui_Form):
     def __init__(self):
-        super(LogWindow, self).__init__()
+        super(RegWindow, self).__init__()
         self.setupUi(self)
-
-        self.initUI()
-
-    def initUI(self):
-        self.setFixedSize(430, 240)

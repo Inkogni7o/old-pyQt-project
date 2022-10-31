@@ -3,7 +3,7 @@
 import sys
 
 from PyQt5.QtWidgets import QApplication
-from registration import LogWindow
+from login import LogWindow
 
 
 if __name__ == '__main__':
