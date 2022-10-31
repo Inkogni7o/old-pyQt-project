@@ -10,4 +10,4 @@ class LogWindow(QWidget, Ui_login_wndw):
         self.initUI()
 
     def initUI(self):
-        self.setFixedSize(400, 230)
+        self.setFixedSize(430, 240)
