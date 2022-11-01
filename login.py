@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 from PyQt5.QtWidgets import QWidget
 from forms.login1 import Ui_login_wndw
 

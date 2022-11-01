@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-
+import sqlite3
 import sys
 
 from PyQt5.QtWidgets import QApplication, QWidget
@@ -12,7 +12,8 @@ class MainFrom(QWidget):
         super(MainFrom, self).__init__()
         self.login = LogWindow()
         self.login.show()
-        self.login.pushButton.clicked.connect(self.to_registration)
+        self.login.register_btn.clicked.connect(self.to_registration)
+        self.login.login_btn.clicked.connect(self.login_user)
 
     def to_registration(self):
         self.reg = RegWindow()
@@ -24,6 +25,13 @@ class MainFrom(QWidget):
         self.reg.close()
         self.login = LogWindow()
         self.login.show()
+
+    def login_user(self):
+        with sqlite3.connect('db/main_db.db') as con:
+            cur = con.cursor()
+            result = cur.execute("""SELECT password FROM users WHERE login=?""", self.login.login_input.text())
+            if self.login.password_input.text() in result:
+                self.user = self.login.login_input.text()
 
 
 if __name__ == '__main__':
