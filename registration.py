@@ -12,9 +12,10 @@ class RegWindow(QWidget, Ui_Form):
         self.lets_begin_btn.clicked.connect(self.new_user)
 
     def new_user(self):
-        with sqlite3.connect('db/users_db.db') as con:
-            cur = con.cursor()
-            cur.execute("""INSERT INTO users(login,password,name,second_name) VALUES(?,?,?,?)""",
-                        (self.login_input.text(), self.password.text(), self.name_input.text(),
-                         self.name2_input.text()))
-            con.commit()
+        if self.password.text() == self.password2.text():
+            with sqlite3.connect('db/users_db.db') as con:
+                cur = con.cursor()
+                cur.execute("""INSERT INTO users(login,password,name,second_name) VALUES(?,?,?,?)""",
+                            (self.login_input.text(), self.password.text(), self.name_input.text(),
+                             self.name2_input.text()))
+                con.commit()
