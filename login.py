@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from PyQt5.QtWidgets import QWidget
-from forms.login1 import Ui_login_wndw
+from forms.login1UI import Ui_login_wndw
 
 
 class LogWindow(QWidget, Ui_login_wndw):

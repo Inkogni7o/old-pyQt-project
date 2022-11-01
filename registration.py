@@ -2,7 +2,7 @@
 import sqlite3
 
 from PyQt5.QtWidgets import QWidget
-from forms.reg import Ui_Form
+from forms.regUI import Ui_Form
 
 
 class RegWindow(QWidget, Ui_Form):
