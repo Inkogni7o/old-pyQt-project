@@ -5,6 +5,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget
 from login import LogWindow
 from registration import RegWindow
+from today_activity import TodayWindow
 
 
 class MainFrom(QWidget):
@@ -29,9 +30,16 @@ class MainFrom(QWidget):
     def login_user(self):
         with sqlite3.connect('db/main_db.db') as con:
             cur = con.cursor()
-            result = cur.execute("""SELECT password FROM users WHERE login=?""", self.login.login_input.text())
+            result = cur.execute("""SELECT password FROM users WHERE login=?""",
+                                 (str(self.login.login_input.text()),)).fetchone()
             if self.login.password_input.text() in result:
                 self.user = self.login.login_input.text()
+                self.to_today()
+
+    def to_today(self):
+        self.today = TodayWindow()
+        self.today.show()
+        self.login.close()
 
 
 if __name__ == '__main__':
