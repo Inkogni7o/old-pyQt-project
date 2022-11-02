@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import sqlite3
 import sys
 
 from PyQt5.QtWidgets import QApplication, QWidget
@@ -6,8 +7,10 @@ from forms.add_groupUI import Ui_Form
 
 
 class NewGroupWindow(QWidget, Ui_Form):
-    def __init__(self):
+    def __init__(self, login):
         super(NewGroupWindow, self).__init__()
+        self.login = login
+        self.days = list()
         self.setupUi(self)
         self.buttonBox.rejected.connect(lambda: self.close())
         self.buttonBox.accepted.connect(self.new_group)
@@ -30,16 +33,28 @@ class NewGroupWindow(QWidget, Ui_Form):
         if self.main_dict[self.sender().text()][0].isEnabled() == 0:
             self.main_dict[self.sender().text()][0].setEnabled(True)
             self.main_dict[self.sender().text()][1].setEnabled(True)
+            self.days.append(self.sender().text())
         else:
             self.main_dict[self.sender().text()][0].setEnabled(False)
             self.main_dict[self.sender().text()][1].setEnabled(False)
+            self.days.pop(self.days.index(self.sender().text()))
 
     def new_group(self):
-        pass
+        with sqlite3.connect('db/main_db.db') as con:
+            cur = con.cursor()
+            print(self.name_group_input.text(), self.login, self.count_pupils_input.text(),
+                                     ' '.join(self.days), ' '.join([self.main_dict[i][0].text() for i in self.days]),
+                                     ' '.join([self.main_dict[i][1].text() for i in self.days]), sep='\n')
+            cur.execute("""INSERT INTO groups(title, teacher_login, max_count, days_of_the_week, starts, ends)
+            VALUES(?,?,?,?,?,?)""", (self.name_group_input.text(), self.login, int(self.count_pupils_input.text()),
+                                     ' '.join(self.days), ' '.join([self.main_dict[i][0].text() for i in self.days]),
+                                     ' '.join([self.main_dict[i][1].text() for i in self.days])))
+            con.commit()
+            self.close()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    main_app = NewGroupWindow()
+    main_app = NewGroupWindow('Логин')
     main_app.show()
     sys.exit(app.exec_())

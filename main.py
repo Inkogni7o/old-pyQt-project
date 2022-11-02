@@ -16,6 +16,7 @@ class MainFrom(QWidget):
         self.login.register_btn.clicked.connect(self.to_registration)
         self.login.login_btn.clicked.connect(self.login_user)
 
+
     def to_registration(self):
         self.reg = RegWindow()
         self.reg.lets_begin_btn.clicked.connect(self.to_login)
@@ -37,7 +38,7 @@ class MainFrom(QWidget):
                 self.to_today()
 
     def to_today(self):
-        self.today = TodayWindow()
+        self.today = TodayWindow(self.user)
         self.today.show()
         self.login.close()
 
