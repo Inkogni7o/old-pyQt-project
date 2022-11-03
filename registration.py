@@ -13,7 +13,7 @@ class RegWindow(QWidget, Ui_Form):
 
     def new_user(self):
         if self.password.text() == self.password2.text():
-            with sqlite3.connect('db/main_db.db') as con:
+            with sqlite3.connect('main_db.db') as con:
                 cur = con.cursor()
                 cur.execute("""INSERT INTO users(login,password,name,second_name) VALUES(?,?,?,?)""",
                             (self.login_input.text(), self.password.text(), self.name_input.text(),

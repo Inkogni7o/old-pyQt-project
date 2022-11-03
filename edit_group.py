@@ -9,6 +9,6 @@ class EditGroupWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, id_group: int):
         super(EditGroupWindow, self).__init__()
         self.setupUi(self)
-        with sqlite3.connect('db/main_db.db') as con:
+        with sqlite3.connect('main_db.db') as con:
             cur = con.cursor()
             self.result = cur.execute(""" """)

@@ -40,7 +40,7 @@ class NewGroupWindow(QWidget, Ui_Form):
             self.days.pop(self.days.index(self.sender().text()))
 
     def new_group(self):
-        with sqlite3.connect('db/main_db.db') as con:
+        with sqlite3.connect('main_db.db') as con:
             cur = con.cursor()
             cur.execute("""INSERT INTO groups(title, teacher_login, max_count, days_of_the_week, starts, ends)
             VALUES(?,?,?,?,?,?)""", (self.name_group_input.text(), self.login, int(self.count_pupils_input.text()),

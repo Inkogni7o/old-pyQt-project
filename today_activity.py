@@ -24,7 +24,7 @@ class TodayWindow(QMainWindow, Ui_MainWindow):
         self.calendar.clicked.connect(self.display_groups)
 
     def display_groups(self):
-        with sqlite3.connect('db/main_db.db') as con:
+        with sqlite3.connect('main_db.db') as con:
             day_of_the_week = DECODE_DAYS[self.calendar.selectedDate().dayOfWeek()]
             cur = con.cursor()
             self.result = cur.execute("""SELECT title, days_of_the_week, starts, ends, id FROM groups

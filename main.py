@@ -28,7 +28,7 @@ class MainFrom(QWidget):
         self.login.show()
 
     def login_user(self):
-        with sqlite3.connect('db/main_db.db') as con:
+        with sqlite3.connect('main_db.db') as con:
             cur = con.cursor()
             result = cur.execute("""SELECT password FROM users WHERE login=?""",
                                  (str(self.login.login_input.text()),)).fetchone()
